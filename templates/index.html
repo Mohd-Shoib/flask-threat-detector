@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Threat Detection</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h2>User Threat Detection System</h2>
+        <form method="POST" action="/predict">
+            <input type="number" name="hour" placeholder="Hour" value="{{ input_data['hour'] if input_data else '' }}"
+                required>
+            <input type="number" name="dayofweek" placeholder="Day of Week"
+                value="{{ input_data['dayofweek'] if input_data else '' }}" required>
+            <input type="number" name="attachments" placeholder="Attachments"
+                value="{{ input_data['attachments'] if input_data else '' }}" required>
+            <input type="number" name="file_access_count" placeholder="File Access Count"
+                value="{{ input_data['file_access_count'] if input_data else '' }}" required>
+            <input type="number" name="unique_files_accessed" placeholder="Unique Files Accessed"
+                value="{{ input_data['unique_files_accessed'] if input_data else '' }}" required>
+            <input type="number" name="device_count" placeholder="Device Count"
+                value="{{ input_data['device_count'] if input_data else '' }}" required>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h3>Prediction: {{ prediction }}</h3>
+        </div>
+        {% endif %}
+        {% if explanation %}
+        <div class="result">
+            <p><strong>Explanation:</strong> {{ explanation }}</p>
+        </div>
+        {% endif %}
+        {% if shap_image %}
+        <div class="shap">
+            <h4>Visual Explanation (SHAP):</h4>
+            <img src="{{ shap_image }}" alt="SHAP Explanation" width="100%">
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
