@@ -39,18 +39,17 @@ def predict():
         label = "Potential Threat" if prediction[0] == -1 else "Normal User"
 
 
-        # Rule-based safety check
-        if(8 <= input_data[0] <= 22 and
-            0 <= input_data[1] <= 4 and
-            input_data[2] <= 3):
-                label = "Normal User"
-        else: label = "Potential Threat"
-
-        if (input_data[3] > 300 or 
+        # Rule-based override logic
+        if (input_data[0] < 8 or input_data[0] > 22 or
+            input_data[1] > 4 or 
+            input_data[2] > 3 or
+            input_data[3] > 300 or 
             input_data[4] > 100 or
             input_data[5] > 5):
             label = "Potential Threat"
-        else: label = "Normal User"
+        else:
+            label = "Normal User"
+
 
         #Shap plot
         shap_img_path = ""
