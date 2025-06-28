@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import numpy as np
+import os
 import pickle
 from sklearn.preprocessing import StandardScaler
 
@@ -43,10 +44,13 @@ def predict():
             0 <= input_data[1] <= 4 and
             input_data[2] <= 3):
                 label = "Normal User"
-        if (input_data[3] > 300 and 
-            input_data[4] > 100 and
+        else: label = "Potential Threat"
+
+        if (input_data[3] > 300 or 
+            input_data[4] > 100 or
             input_data[5] > 5):
             label = "Potential Threat"
+        else: label = "Normal User"
 
         #Shap plot
         shap_img_path = ""
@@ -86,4 +90,6 @@ def predict():
         return render_template('index.html', prediction=f"Error: {str(e)}")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
+
