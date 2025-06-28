@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 app = Flask(__name__)
 
 # Load model, scaler, threshold
-autoencoder = load_model('model/autoencoder_model.h5', compile=False)
+autoencoder = load_model("model/autoencoder_model.keras", compile=False)
 scaler = pickle.load(open('model/scaler.pkl', 'rb'))
 threshold = pickle.load(open('model/threshold.pkl', 'rb'))
 
