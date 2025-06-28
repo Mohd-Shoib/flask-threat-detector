@@ -1,31 +1,15 @@
 from flask import Flask, render_template, request
 import numpy as np
 import pickle
-from tensorflow.keras.models import load_model
 from sklearn.preprocessing import StandardScaler
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-
-# Define the same architecture used during training
-autoencoder = Sequential([
-    Dense(16, activation='relu', input_shape=(6,)),
-    Dense(8, activation='relu'),
-    Dense(16, activation='relu'),
-    Dense(6, activation='linear'),
-])
-autoencoder.compile(optimizer='adam', loss='mse')
-
-# Load pre-trained weights
-autoencoder.load_weights("model/autoencoder_weights.weights.h5")
 
 
 
 app = Flask(__name__)
 
-# Load model, scaler, threshold
-autoencoder.load_weights("model/autoencoder_weights.weights.h5")
+# Load model and scaler
+model = pickle.load(open('model/cert_model.pkl', 'rb'))
 scaler = pickle.load(open('model/scaler.pkl', 'rb'))
-threshold = pickle.load(open('model/threshold.pkl', 'rb'))
 
 
 
@@ -48,14 +32,11 @@ def predict():
             input_data.append(float(val))
 
         input_array = np.array([input_data])
-        input_scaled = scaler.transform(input_array)
 
-        # Reconstruct & calculate MSE
-        reconstruction = autoencoder.predict(input_scaled)
-        mse = np.mean(np.square(input_scaled - reconstruction))
+        input_scaled = scaler.transform([input_data])
+        prediction = model.predict(input_scaled)
+        label = "Potential Threat" if prediction[0] == -1 else "Normal User"
 
-        # Label prediction
-        label = "Potential Threat" if mse > threshold else "Normal User"
 
         # Rule-based safety check
         if(8 <= input_data[0] <= 22 and
