@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>User Threat Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
     <div class="container">
         <h2>User Threat Detection System</h2>
-        <form method="POST" action="/predict">
+        <form method="POST" action="/predict" style="margin-bottom: 20px;">
             <input type="number" name="hour" placeholder="Hour" value="{{ input_data['hour'] if input_data else '' }}"
                 required>
             <input type="number" name="dayofweek" placeholder="Day of Week"
@@ -45,6 +47,11 @@
         {% endif %}
 
     </div>
+    <footer>
+        Developed by <strong>Mohd Shoib Qureshi</strong><br>
+        <a href="https://www.linkedin.com/in/mohd-shoib-qureshi-7a6429259/" target="_blank">LinkedIn</a> |
+        <a href="https://github.com/Mohd-Shoib" target="_blank">GitHub</a>
+    </footer>
 </body>
 
 </html>

@@ -6,12 +6,13 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to right, #ece9e6, #ffffff);
     margin: 0;
-    padding: 0;
+    padding: 0 0 80px 0;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+    flex-direction: column;
 }
 
 .container {
@@ -74,4 +75,48 @@ button:hover {
     font-weight: bold;
     color: #333;
     text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    input, button {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .result {
+        font-size: 15px;
+    }
+
+    .shap img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 14px;
+    color: #444;
+    width: 100%;
+    background-color: #f9f9f9;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }

@@ -74,7 +74,7 @@ def predict():
             if input_data[5] > 5:
                 explanation += "Excessive Device Count; "
         else :
-            explanation = "It is a Good User"
+            explanation = "No unusual behavior detected."
 
 
         return render_template(
